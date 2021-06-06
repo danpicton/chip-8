@@ -1,3 +1,5 @@
+import pygame, sys
+from pygame.locals import *
 # memory 4k
 # pc
 # index register I (16)
@@ -108,6 +110,16 @@ class Chip8:
 def main(name):
 
     c = Chip8()
+
+    pygame.init()
+    DISPLAYSURF=pygame.display.set_mode((400,300))
+    pygame.display.set_caption("Chip8")
+    while True:
+        for event in pygame.event.get():
+            if event.type==QUIT:
+                pygame.quit()
+                sys.exit()
+        pygame.display.update()
 
     # byte = 0xADCB
     #
