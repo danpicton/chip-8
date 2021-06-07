@@ -113,7 +113,15 @@ def main(name):
 
     pygame.init()
     DISPLAYSURF=pygame.display.set_mode((400,300))
+    PIXELSIZE = [8,8]
+    target_xy={"x": 16, "y": 16}
     pygame.display.set_caption("Chip8")
+    parr=pygame.PixelArray(DISPLAYSURF)
+    for cpy in range(PIXELSIZE[1]-1):
+        for cpx in range(PIXELSIZE[0]-1):
+
+            parr[target_xy["x"]+cpx,target_xy["y"]+cpy]=0xFFFFFF
+
     while True:
         for event in pygame.event.get():
             if event.type==QUIT:
