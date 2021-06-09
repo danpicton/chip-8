@@ -106,22 +106,42 @@ class Chip8:
         else:
             print('Different else')
 
+class Display:
+    # PIXEL_SIZE = (8, 8)
+
+    def __init__(self, chip8_resolution, pixel_size):
+        pygame.init()
+        self.width, self.height = (element * pixel_size for element in chip8_resolution)
+        self.surface = pygame.display.set_mode((self.width, self.height))
+        self.pixel_size = pixel_size
+        self.pixel_array = pygame.PixelArray(self.surface)
+        pygame.display.set_caption("Chip8")
+
+    def draw_pixel(self, x, y):
+        x*=self.pixel_size
+        y*=self.pixel_size
+        for py in range(self.pixel_size - 1):
+            for px in range(self.pixel_size - 1):
+                self.pixel_array[x+px, y+py] = 0xFFFFFF
 
 def main(name):
 
     c = Chip8()
-
-    pygame.init()
-    DISPLAYSURF=pygame.display.set_mode((400,300))
-    PIXELSIZE = [8,8]
-    target_xy={"x": 16, "y": 16}
-    pygame.display.set_caption("Chip8")
-    parr=pygame.PixelArray(DISPLAYSURF)
-    for cpy in range(PIXELSIZE[1]-1):
-        for cpx in range(PIXELSIZE[0]-1):
-
-            parr[target_xy["x"]+cpx,target_xy["y"]+cpy]=0xFFFFFF
-
+    d = Display(SCREEN_RES, 8)
+    # pygame.init()
+    # DISPLAYSURF=pygame.display.set_mode((400,300))
+    # # PIXELSIZE = [8,8]
+    # target_xy={"x": 16, "y": 16}
+    #
+    # parr=pygame.PixelArray(DISPLAYSURF)
+    # for cpy in range(PIXELSIZE[1]-1):
+    #     for cpx in range(PIXELSIZE[0]-1):
+    #
+    #         parr[target_xy["x"]+cpx,target_xy["y"]+cpy]=0xFFFFFF
+    d.draw_pixel(0,0)
+    d.draw_pixel(1,1)
+    d.draw_pixel(8,8)
+    d.draw_pixel(63,31)
     while True:
         for event in pygame.event.get():
             if event.type==QUIT:
