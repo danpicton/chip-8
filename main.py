@@ -73,8 +73,9 @@ class Chip8:
         # print(self.memory[self.pc] << 8)
         # print(self.memory[self.pc+1])
 
-        self.opcode = self.memory[self.pc] + self.memory[self.pc + 1]
-        self.pc+=2
+        if self.memory[self.pc]:
+            self.opcode = self.memory[self.pc] + self.memory[self.pc + 1]
+            self.pc+=2
         # read two bytes being pointed to by PC
         # increment PC by 2
 
