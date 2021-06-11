@@ -144,12 +144,7 @@ def main(name):
     d.draw_pixel(1,1)
     d.draw_pixel(8,8)
     d.draw_pixel(63,31)
-    while True:
-        for event in pygame.event.get():
-            if event.type==QUIT:
-                pygame.quit()
-                sys.exit()
-        pygame.display.update()
+
 
     # byte = 0xADCB
     #
@@ -161,20 +156,17 @@ def main(name):
     # print(hex(n1>>12))
 
     c.load('ibm.ch8')
-    c.fetch()
-    c.decode()
-    c.fetch()
-    c.decode()
-    c.fetch()
-    c.decode()
-    c.fetch()
-    c.decode()
-    c.fetch()
-    c.decode()
-    c.fetch()
-    c.decode()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type==QUIT:
+                pygame.quit()
+                sys.exit()
+        c.fetch()
+        c.decode()
 
 
+        pygame.display.update()
     pass
 
 
