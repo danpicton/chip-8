@@ -103,8 +103,10 @@ class Chip8:
             print(f'Set index register, I, to {NNN}')
         elif instruction == 'd':
             print(f'Draw {N} height sprite at ({X}, {Y})')
+        elif instruction != None:
+            print(f'Different else - {self.opcode}')
         else:
-            print('Different else')
+            pass
 
 class Display:
     # PIXEL_SIZE = (8, 8)
