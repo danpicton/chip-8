@@ -33,7 +33,7 @@ SCREEN_RES = (64, 32)
 
 class Chip8:
 
-    def __init__(self):
+    def __init__(self, display: pygame.display):
         self.memory = [None] * 4096 # 4k
         self.vregisters = [None] * 16 # 16
         self.pc = MEM_ADDRESS_START
@@ -45,6 +45,7 @@ class Chip8:
         self.keypad = [None] * 16
         self.video = [None] * SCREEN_RES[0] * SCREEN_RES[1]
         self.opcode = 0x00
+        self.display = display
 
         self.initialise()
 
@@ -129,8 +130,8 @@ class Display:
 
 def main(name):
 
-    c = Chip8()
     d = Display(SCREEN_RES, 8)
+    c = Chip8(d)
     # pygame.init()
     # DISPLAYSURF=pygame.display.set_mode((400,300))
     # # PIXELSIZE = [8,8]
