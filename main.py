@@ -129,12 +129,15 @@ class Display:
         self.pixel_array = pygame.PixelArray(self.surface)
         pygame.display.set_caption("Chip8")
 
-    def draw_pixel(self, x, y):
+    def draw_pixel(self, x, y, *off):
         x*=self.pixel_size
         y*=self.pixel_size
-        for py in range(self.pixel_size - 1):
-            for px in range(self.pixel_size - 1):
-                self.pixel_array[x+px, y+py] = 0xFFFFFF
+        for py in range(self.pixel_size):
+            for px in range(self.pixel_size):
+                if off:
+                    self.pixel_array[x+px, y+py] = 0x000000
+                else:
+                    self.pixel_array[x+px, y+py] = 0xFFFFFF
 
 def main(name):
 
