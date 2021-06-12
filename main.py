@@ -1,3 +1,5 @@
+from time import sleep
+
 import pygame, sys
 from pygame.locals import *
 # memory 4k
@@ -146,7 +148,8 @@ def main(name):
     d.draw_pixel(1,1)
     d.draw_pixel(8,8)
     d.draw_pixel(63,31)
-
+    pygame.display.update()
+    sleep(2)
 
     # byte = 0xADCB
     #
@@ -166,7 +169,7 @@ def main(name):
                 sys.exit()
         c.fetch()
         c.decode()
-
+        sleep(0.2)
 
         pygame.display.update()
     pass
