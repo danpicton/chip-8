@@ -97,6 +97,12 @@ class Chip8:
         # execute instruction if no execute
         if self.opcode=='00e0':
             print("Clear screen")
+            print(f'x-1: {SCREEN_RES[0]}, y-1: {SCREEN_RES[1]}')
+            for y in range(SCREEN_RES[1]):
+                for x in range(SCREEN_RES[0]):
+                    print(f'Clearing: {x}, {y}')
+                    self.display.draw_pixel(x,y, True)
+
         elif instruction == '1':
             print(f'Jump to {NNN}')
         elif instruction == '6':
