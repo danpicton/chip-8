@@ -105,14 +105,24 @@ class Chip8:
 
         elif instruction == '1':
             print(f'Jump to {NNN}')
+            self.pc = NNN # come back to this
+            pass
         elif instruction == '6':
             print(f'Set register {X} to {NN}')
+            self.vregisters[X] = NN
         elif instruction == '7':
             print(f'Add {NN} to register {X}')
+            self.vregisters[X] += NN
         elif instruction == 'a':
             print(f'Set index register, I, to {NNN}')
+            self.index = NNN
         elif instruction == 'd':
-            print(f'Draw {N} height sprite at ({X}, {Y})')
+            x=self.vregisters[X]
+            y=self.vregisters[Y]
+            print(f'Draw {N} height sprite at ({x}, {y})')
+            for curr_y in range(N):
+                    # print(f'Clearing: {x}, {y}')
+                    self.display.draw_pixel(x, curr_y + y)
         elif instruction != None:
             print(f'Different else - {self.opcode}')
         else:
