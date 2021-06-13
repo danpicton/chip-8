@@ -86,11 +86,11 @@ class Chip8:
 
         # print(f'{self.opcode} is a {type(self.opcode)}')
         instruction = self.opcode[0]
-        X = self.opcode[1]
-        Y = self.opcode[2]
-        N = self.opcode[3]
-        NN = self.opcode[2:]
-        NNN = self.opcode[1:]
+        X = int(self.opcode[1], 16)
+        Y = int(self.opcode[2], 16)
+        N = int(self.opcode[3], 16)
+        NN = int(self.opcode[2:], 16)
+        NNN = int(self.opcode[1:], 16)
 
         # big if/elseif statement with bit AND first char and rest
         # deconstruct bytes into nibbles [A, B, C, D] = 0XFF
