@@ -97,10 +97,10 @@ class Chip8:
         # execute instruction if no execute
         if self.opcode=='00e0':
             print("Clear screen")
-            print(f'x-1: {SCREEN_RES[0]}, y-1: {SCREEN_RES[1]}')
+            # print(f'x-1: {SCREEN_RES[0]}, y-1: {SCREEN_RES[1]}')
             for y in range(SCREEN_RES[1]):
                 for x in range(SCREEN_RES[0]):
-                    print(f'Clearing: {x}, {y}')
+                    # print(f'Clearing: {x}, {y}')
                     self.display.draw_pixel(x,y, True)
 
         elif instruction == '1':
@@ -168,7 +168,7 @@ def main(name):
     d.draw_pixel(8,8)
     d.draw_pixel(63,31)
     pygame.display.update()
-    sleep(2)
+    sleep(0.5)
 
     # byte = 0xADCB
     #
@@ -188,7 +188,7 @@ def main(name):
                 sys.exit()
         c.fetch()
         c.decode()
-        sleep(0.2)
+        sleep(0.1)
 
         pygame.display.update()
     pass
