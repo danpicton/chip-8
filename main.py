@@ -45,7 +45,7 @@ class Chip8:
         self.delay = 0xF
         self.bell = 0xF
         self.keypad = [None] * 16
-        self.video = [None] * SCREEN_RES[0] * SCREEN_RES[1]
+        self.video = [[0] * SCREEN_RES[0]] * SCREEN_RES[1]
         self.opcode = 0x00
         self.display = display
 
@@ -101,7 +101,7 @@ class Chip8:
             for y in range(SCREEN_RES[1]):
                 for x in range(SCREEN_RES[0]):
                     # print(f'Clearing: {x}, {y}')
-                    self.display.draw_pixel(x,y, True)
+                    self.display.draw_pixel(x,y, False)
 
         elif instruction == '1':
             print(f'Jump to {NNN}')
@@ -139,15 +139,15 @@ class Display:
         self.pixel_array = pygame.PixelArray(self.surface)
         pygame.display.set_caption("Chip8")
 
-    def draw_pixel(self, x, y, *off):
+    def draw_pixel(self, x, y, on=True):
         x*=self.pixel_size
         y*=self.pixel_size
         for py in range(self.pixel_size):
             for px in range(self.pixel_size):
-                if off:
-                    self.pixel_array[x+px, y+py] = 0x000000
-                else:
+                if on:
                     self.pixel_array[x+px, y+py] = 0xFFFFFF
+                else:
+                    self.pixel_array[x+px, y+py] = 0x000000
 
 def main(name):
 
