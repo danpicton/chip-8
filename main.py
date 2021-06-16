@@ -45,7 +45,8 @@ class Chip8:
         self.delay = 0xF
         self.bell = 0xF
         self.keypad = [None] * 16
-        self.video = [[0] * SCREEN_RES[0]] * SCREEN_RES[1]
+        self.video = [[0]*SCREEN_RES[0] for _ in range(SCREEN_RES[1])]
+        # self.video = [[0] * SCREEN_RES[0]] * SCREEN_RES[1]
         self.opcode = 0x00
         self.display = display
 
@@ -101,7 +102,8 @@ class Chip8:
             for y in range(SCREEN_RES[1]):
                 for x in range(SCREEN_RES[0]):
                     # print(f'Clearing: {x}, {y}')
-                    self.display.draw_pixel(x,y, False)
+                    # self.display.__draw_pixel(x, y, False)
+                    self.video[y][x]=0
 
         elif instruction == '1':
             print(f'Jump to {NNN}')
@@ -122,7 +124,8 @@ class Chip8:
             print(f'Draw {N} height sprite at ({x}, {y})')
             for curr_y in range(N):
                     # print(f'Clearing: {x}, {y}')
-                    self.display.draw_pixel(x, curr_y + y)
+                    # self.display.__draw_pixel(x, curr_y + y)
+                    self.video[curr_y + y][x] ^= 1
         elif instruction != None:
             print(f'Different else - {self.opcode}')
         else:
@@ -139,7 +142,7 @@ class Display:
         self.pixel_array = pygame.PixelArray(self.surface)
         pygame.display.set_caption("Chip8")
 
-    def draw_pixel(self, x, y, on=True):
+    def __draw_pixel(self, x, y, on=True):
         x*=self.pixel_size
         y*=self.pixel_size
         for py in range(self.pixel_size):
@@ -148,6 +151,11 @@ class Display:
                     self.pixel_array[x+px, y+py] = 0xFFFFFF
                 else:
                     self.pixel_array[x+px, y+py] = 0x000000
+
+    def render_bitarray(self, bitarray):
+        for iy, y in enumerate(bitarray):
+            for ix, x in enumerate(bitarray[iy]):
+                self.__draw_pixel(ix, iy, bool(x))
 
 def main(name):
 
@@ -163,10 +171,10 @@ def main(name):
     #     for cpx in range(PIXELSIZE[0]-1):
     #
     #         parr[target_xy["x"]+cpx,target_xy["y"]+cpy]=0xFFFFFF
-    d.draw_pixel(0,0)
-    d.draw_pixel(1,1)
-    d.draw_pixel(8,8)
-    d.draw_pixel(63,31)
+    c.video[10][10]=1
+    c.video[31][63]=1
+    c.video[20][29]=1
+    c.display.render_bitarray(c.video)
     pygame.display.update()
     sleep(0.5)
 
