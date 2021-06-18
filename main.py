@@ -197,7 +197,7 @@ def main(name):
         c.fetch()
         c.decode()
         sleep(0.1)
-
+        c.display.render_bitarray(c.video)
         pygame.display.update()
     pass
 
