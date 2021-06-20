@@ -119,13 +119,17 @@ class Chip8:
             print(f'Set index register, I, to {NNN}')
             self.index = NNN
         elif instruction == 'd':
-            x=self.vregisters[X]
-            y=self.vregisters[Y]
-            print(f'Draw {N} height sprite at ({x}, {y})')
-            for curr_y in range(N):
-                    # print(f'Clearing: {x}, {y}')
-                    # self.display.__draw_pixel(x, curr_y + y)
-                    self.video[curr_y + y][x] ^= 1
+            x=self.vregisters[X]-1
+            y=self.vregisters[Y]-1
+            print(f'Draw {N}-byte sprite from I at ({x}, {y})')
+            self.pc = self.index
+
+            for e, byte in enumerate(int(byte, 16) for byte in self.memory[self.pc:self.pc+N]):
+                print(f"byte {e}: {byte}")
+                for e2, bit in enumerate(format(byte, "08b")):
+                    print(f"---> bit {e2}: {bit} - printing at {x+e2}, {y+e}")
+                    self.video[y+e][x+e2] ^= int(bit)
+
         elif instruction != None:
             print(f'Different else - {self.opcode}')
         else:
