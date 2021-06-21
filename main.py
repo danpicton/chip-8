@@ -122,9 +122,8 @@ class Chip8:
             x=self.vregisters[X]-1
             y=self.vregisters[Y]-1
             print(f'Draw {N}-byte sprite from I at ({x}, {y})')
-            self.pc = self.index
 
-            for e, byte in enumerate(int(byte, 16) for byte in self.memory[self.pc:self.pc+N]):
+            for e, byte in enumerate(int(byte, 16) for byte in self.memory[self.index:self.index+N]):
                 print(f"byte {e}: {byte}")
                 for e2, bit in enumerate(format(byte, "08b")):
                     print(f"---> bit {e2}: {bit} - printing at {x+e2}, {y+e}")
