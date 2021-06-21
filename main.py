@@ -124,9 +124,9 @@ class Chip8:
             print(f'Draw {N}-byte sprite from I at ({x}, {y})')
 
             for e, byte in enumerate(int(byte, 16) for byte in self.memory[self.index:self.index+N]):
-                print(f"byte {e}: {byte}")
+                # print(f"byte {e}: {byte}")
                 for e2, bit in enumerate(format(byte, "08b")):
-                    print(f"---> bit {e2}: {bit} - printing at {x+e2}, {y+e}")
+                    # print(f"---> bit {e2}: {bit} - printing at {x+e2}, {y+e}")
                     self.video[y+e][x+e2] ^= int(bit)
 
         elif instruction != None:
@@ -174,12 +174,12 @@ def main(name):
     #     for cpx in range(PIXELSIZE[0]-1):
     #
     #         parr[target_xy["x"]+cpx,target_xy["y"]+cpy]=0xFFFFFF
-    c.video[10][10]=1
-    c.video[31][63]=1
-    c.video[20][29]=1
-    c.display.render_bitarray(c.video)
-    pygame.display.update()
-    sleep(0.5)
+    # c.video[10][10]=1
+    # c.video[31][63]=1
+    # c.video[20][29]=1
+    # c.display.render_bitarray(c.video)
+    # pygame.display.update()
+    # sleep(0.5)
 
     # byte = 0xADCB
     #
