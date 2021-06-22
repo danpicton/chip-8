@@ -190,7 +190,8 @@ def main(name):
     # print(hex(n2>>8))
     # print(hex(n1>>12))
 
-    c.load('ibm.ch8')
+    c.load('test_opcode.ch8')
+    # c.load('ibm.ch8')
 
     while True:
         for event in pygame.event.get():
