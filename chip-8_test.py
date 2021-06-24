@@ -55,7 +55,15 @@ class TestChip8(unittest.TestCase):
         pass
 
     def test_decode_dXYN(self):
-        pass
+        c = Chip8((8,8))
+        c.memory = list(hex(hexbyte) for hexbyte in [0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 7, 3])
+        c.vregisters[3] = 0x0
+        c.vregisters[5] = 0x0
+        c.index = 3
+        c.opcode='d358'
+        c.decode()
+
+        expected = []
 
 if __name__ == '__main__':
     unittest.main()
