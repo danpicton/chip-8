@@ -119,8 +119,8 @@ class Chip8:
             print(f'Set index register, I, to {NNN}')
             self.index = NNN
         elif instruction == 'd':
-            x=self.vregisters[X]-1
-            y=self.vregisters[Y]-1
+            x=self.vregisters[X]
+            y=self.vregisters[Y]
             print(f'Draw {N}-byte sprite from I at ({x}, {y})')
 
             for e, byte in enumerate(int(byte, 16) for byte in self.memory[self.index:self.index+N]):
