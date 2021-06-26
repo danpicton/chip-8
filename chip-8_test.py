@@ -9,14 +9,14 @@ class TestChip8(unittest.TestCase):
 
 
     def test_video_array_y(self):
-        c = Chip8((64, 32))
+        c = Chip8((10, 12))
 
-        self.assertEqual(len(c.video), 32)
+        self.assertEqual(len(c.video), 12)
 
     def test_video_array_x(self):
-        c = Chip8((64, 32))
+        c = Chip8((36, 8))
 
-        self.assertEqual(len(c.video[0]), 64)
+        self.assertEqual(len(c.video[0]), 36)
 
     def test_fetch(self):
         c = Chip8((1, 1))
