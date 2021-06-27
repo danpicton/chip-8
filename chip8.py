@@ -35,7 +35,7 @@ SCREEN_RES = (64, 32)
 
 class Chip8:
 
-    def __init__(self, display: pygame.display):
+    def __init__(self, screen_res: tuple, pixel_size: int):
         self.memory = [None] * 4096 # 4k
         self.vregisters = [None] * 16 # 16
         self.pc = MEM_ADDRESS_START
@@ -45,10 +45,12 @@ class Chip8:
         self.delay = 0xF
         self.bell = 0xF
         self.keypad = [None] * 16
-        self.video = [[0]*SCREEN_RES[0] for _ in range(SCREEN_RES[1])]
+        self.video = [[0]*screen_res[0] for _ in range(screen_res[1])]
         # self.video = [[0] * SCREEN_RES[0]] * SCREEN_RES[1]
         self.opcode = 0x00
-        self.display = display
+        self.pixel_size = pixel_size
+        self.screen_res = screen_res
+        self.display = d = Display(screen_res, pixel_size)
 
         self.initialise()
 
@@ -99,8 +101,8 @@ class Chip8:
         if self.opcode=='00e0':
             print("Clear screen")
             # print(f'x-1: {SCREEN_RES[0]}, y-1: {SCREEN_RES[1]}')
-            for y in range(SCREEN_RES[1]):
-                for x in range(SCREEN_RES[0]):
+            for y in range(self.screen_res[1]):
+                for x in range(self.screen_res[0]):
                     # print(f'Clearing: {x}, {y}')
                     # self.display.__draw_pixel(x, y, False)
                     self.video[y][x]=0
@@ -162,8 +164,8 @@ class Display:
 
 def main(name):
 
-    d = Display(SCREEN_RES, 8)
-    c = Chip8(d)
+
+    c = Chip8(SCREEN_RES, 8)
     # pygame.init()
     # DISPLAYSURF=pygame.display.set_mode((400,300))
     # # PIXELSIZE = [8,8]
@@ -190,8 +192,8 @@ def main(name):
     # print(hex(n2>>8))
     # print(hex(n1>>12))
 
-    c.load('test_opcode.ch8')
-    # c.load('ibm.ch8')
+    # c.load('test_opcode.ch8')
+    c.load('ibm.ch8')
 
     while True:
         for event in pygame.event.get():
