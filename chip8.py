@@ -54,6 +54,9 @@ class Chip8:
 
         self.initialise()
 
+    def __del__(self):
+        pass
+
     def initialise(self):
         # load fonts
         self.pc = FONT_ADDRESS_START
