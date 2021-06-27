@@ -13,6 +13,8 @@ class TestChip8(unittest.TestCase):
 
         self.assertEqual(len(c.video), 12)
 
+        del c
+
     def test_video_array_x(self):
         c = Chip8((36, 8), 8)
 
@@ -26,6 +28,8 @@ class TestChip8(unittest.TestCase):
 
         self.assertEqual(c.opcode, 331)
 
+        del c
+
     # def test_decode(self):
     #     c = Chip8((1, 1))
     #     c.pc = 0
@@ -37,6 +41,7 @@ class TestChip8(unittest.TestCase):
 
     def test_decode_00e0(self):
         c = Chip8((20, 20), 8)
+
         for i in range(10):
             c.video[randint(0,18)+1][randint(0,18)+1] = 1
 
@@ -44,6 +49,8 @@ class TestChip8(unittest.TestCase):
         c.decode()
 
         self.assertEqual(sum(list(map(sum, c.video))), 0)
+
+        del c
 
     def test_decode_1NNN(self):
         pass
@@ -63,18 +70,20 @@ class TestChip8(unittest.TestCase):
         c.opcode='d358'
         c.decode()
 
-        expected = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-                    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+        expected = [[0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
                     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
                     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
                     [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
                     [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
                     [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
                     [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-                    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+                    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
         self.assertEqual(c.video, expected)
+
+        del c
 
 if __name__ == '__main__':
     unittest.main()
