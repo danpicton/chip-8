@@ -174,6 +174,9 @@ def main(name):
     # c.load('test_opcode.ch8')
     c.load('ibm.ch8')
 
+    pygame.init()
+    pygame.display.set_caption("Chip8")
+
     while True:
         for event in pygame.event.get():
             if event.type==QUIT:

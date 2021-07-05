@@ -1,15 +1,11 @@
-import pygame
-
 class Display():
     # PIXEL_SIZE = (8, 8)
 
     def __init__(self, chip8_resolution, pixel_size):
-        pygame.init()
         self.width, self.height = (element * pixel_size for element in chip8_resolution)
         self.surface = pygame.display.set_mode((self.width, self.height))
         self.pixel_size = pixel_size
         self.pixel_array = pygame.PixelArray(self.surface)
-        pygame.display.set_caption("Chip8")
 
     def __draw_pixel(self, x, y, on=True):
         x*=self.pixel_size
