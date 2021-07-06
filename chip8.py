@@ -1,6 +1,7 @@
 from time import sleep
 
 import pygame, sys
+from display import Display
 from pygame.locals import *
 # memory 4k
 # pc
@@ -30,6 +31,7 @@ FONTS = [
     0xF0, 0x80, 0xF0, 0x80, 0x80  # F
 ]
 SCREEN_RES = (64, 32)
+PIXEL_SIZE = 12
 
 
 
@@ -50,7 +52,6 @@ class Chip8:
         self.opcode = 0x00
         self.pixel_size = pixel_size
         self.screen_res = screen_res
-        self.display = d = Display(screen_res, pixel_size)
 
         self.initialise()
 
@@ -145,6 +146,7 @@ def main(name):
 
 
     c = Chip8(SCREEN_RES, 8)
+    display = Display(SCREEN_RES, PIXEL_SIZE)
     # pygame.init()
     # DISPLAYSURF=pygame.display.set_mode((400,300))
     # # PIXELSIZE = [8,8]
@@ -185,7 +187,7 @@ def main(name):
         c.fetch()
         c.decode()
         sleep(0.1)
-        c.display.render_bitarray(c.video)
+        display.render_bitarray(c.video)
         pygame.display.update()
     pass
 
