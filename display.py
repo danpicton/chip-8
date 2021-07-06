@@ -1,3 +1,5 @@
+import pygame
+
 class Display():
     # PIXEL_SIZE = (8, 8)
 
