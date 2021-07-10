@@ -53,13 +53,36 @@ class TestChip8(unittest.TestCase):
         del c
 
     def test_decode_1NNN(self):
-        pass
+        c = Chip8((1, 1), 8)
+
+        c.opcode = '12ef'
+        c.decode()
+
+        self.assertEqual(c.pc, int('2ef', 16))
+
+        del c
 
     def test_decode_7XNN(self):
-        pass
+        c = Chip8((1, 1), 1)
+
+        c.vregisters[3] = 0x3f
+
+        c.opcode = '730a'
+        c.decode()
+
+        self.assertEqual(c.vregisters[3], 0x3f + 0x0a)
+
+        del c
 
     def test_decode_aNNN(self):
-        pass
+        c = Chip8((1, 1), 1)
+
+        c.opcode = 'a1ef'
+        c.decode()
+
+        self.assertEqual(c.index, 0x1ef)
+
+        del c
 
     def test_decode_dXYN(self):
         c = Chip8((10, 10), 8)
