@@ -1,13 +1,39 @@
 import unittest
+from functools import wraps
 from random import randint
 
 import chip8
 from chip8 import Chip8, Display
 
+
+def video_test(func):
+    def do_test(self=None, *args, **kwargs):
+        c = Chip8(kwargs['screen_res'], kwargs['pixel_size'])
+
+        func(self)
+
+        del c
+
+    return do_test
+
+def non_video_test(func):
+    @wraps(func)
+    def do_test(self):
+        c = Chip8((1, 1), 1)
+
+        func(self)
+
+        del c
+
+    return do_test
+
+
+
 class TestChip8(unittest.TestCase):
 
 
 
+    # @video_test(screen_res=(10, 12), pixel_size=8)
     def test_video_array_y(self):
         c = Chip8((10, 12), 8)
 
@@ -20,15 +46,16 @@ class TestChip8(unittest.TestCase):
 
         self.assertEqual(len(c.video[0]), 36)
 
+    @non_video_test
     def test_fetch(self):
-        c = Chip8((1, 1), 8)
+        # c = Chip8((1, 1), 8)
         c.pc = 0
         c.memory = [255, 76, 126, 237, 1]
         c.fetch()
 
         self.assertEqual(c.opcode, 331)
 
-        del c
+        # del c
 
     # def test_decode(self):
     #     c = Chip8((1, 1))
