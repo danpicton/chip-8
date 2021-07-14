@@ -17,13 +17,12 @@ def video_test(func):
     return do_test
 
 def non_video_test(func):
-    @wraps(func)
     def do_test(self):
-        c = Chip8((1, 1), 1)
+        test_chip8 = Chip8((1, 1), 1)
 
-        func(self)
+        func(self, test_chip8)
 
-        del c
+        del test_chip8
 
     return do_test
 
@@ -47,15 +46,14 @@ class TestChip8(unittest.TestCase):
         self.assertEqual(len(c.video[0]), 36)
 
     @non_video_test
-    def test_fetch(self):
-        # c = Chip8((1, 1), 8)
+    def test_fetch(self, c):
+
         c.pc = 0
         c.memory = [255, 76, 126, 237, 1]
         c.fetch()
 
         self.assertEqual(c.opcode, 331)
 
-        # del c
 
     # def test_decode(self):
     #     c = Chip8((1, 1))
@@ -79,19 +77,15 @@ class TestChip8(unittest.TestCase):
 
         del c
 
-    def test_decode_1NNN(self):
-        c = Chip8((1, 1), 8)
-
+    @non_video_test
+    def test_decode_1NNN(self, c):
         c.opcode = '12ef'
         c.decode()
 
         self.assertEqual(c.pc, int('2ef', 16))
 
-        del c
-
-    def test_decode_7XNN(self):
-        c = Chip8((1, 1), 1)
-
+    @non_video_test
+    def test_decode_7XNN(self, c):
         c.vregisters[3] = 0x3f
 
         c.opcode = '730a'
@@ -99,17 +93,13 @@ class TestChip8(unittest.TestCase):
 
         self.assertEqual(c.vregisters[3], 0x3f + 0x0a)
 
-        del c
-
-    def test_decode_aNNN(self):
-        c = Chip8((1, 1), 1)
-
+    @non_video_test
+    def test_decode_aNNN(self, c):
         c.opcode = 'a1ef'
         c.decode()
 
         self.assertEqual(c.index, 0x1ef)
 
-        del c
 
     def test_decode_dXYN(self):
         c = Chip8((10, 10), 8)
