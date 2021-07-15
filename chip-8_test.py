@@ -1,9 +1,6 @@
 import unittest
-from functools import wraps
 from random import randint
-
-import chip8
-from chip8 import Chip8, Display
+from chip8 import Chip8
 
 
 def video_test(func):
