@@ -27,21 +27,15 @@ def non_video_test(func):
     return do_test
 
 
-
 class TestChip8(unittest.TestCase):
 
-
-
-    # @video_test(screen_res=(10, 12), pixel_size=8)
-    def test_video_array_y(self):
-        c = Chip8((10, 12), 8)
+    @video_test((10, 12), 8)
+    def test_video_array_y(self, c):
 
         self.assertEqual(len(c.video), 12)
 
-        del c
-
-    def test_video_array_x(self):
-        c = Chip8((36, 8), 8)
+    @video_test((36, 8), 8)
+    def test_video_array_x(self, c):
 
         self.assertEqual(len(c.video[0]), 36)
 
@@ -54,18 +48,8 @@ class TestChip8(unittest.TestCase):
 
         self.assertEqual(c.opcode, 331)
 
-
-    # def test_decode(self):
-    #     c = Chip8((1, 1))
-    #     c.pc = 0
-    #     c.memory = [255, 76, 126, 237, 1]
-    #     c.fetch()
-    #     c.decode()
-    #
-    #     self.assertEqual()
-
-    def test_decode_00e0(self):
-        c = Chip8((20, 20), 8)
+    @video_test((20, 20), 8)
+    def test_decode_00e0(self, c):
 
         for i in range(10):
             c.video[randint(0,18)+1][randint(0,18)+1] = 1
@@ -75,7 +59,6 @@ class TestChip8(unittest.TestCase):
 
         self.assertEqual(sum(list(map(sum, c.video))), 0)
 
-        del c
 
     @non_video_test
     def test_decode_1NNN(self, c):
@@ -100,9 +83,8 @@ class TestChip8(unittest.TestCase):
 
         self.assertEqual(c.index, 0x1ef)
 
-
-    def test_decode_dXYN(self):
-        c = Chip8((10, 10), 8)
+    @video_test((10, 10), 8)
+    def test_decode_dXYN(self, c):
         c.memory = list(hex(hexbyte) for hexbyte in [0, 0, 0, 1, 2, 4, 8, 16, 32, 64, 128, 7, 3])
         c.vregisters[3] = 0x0
         c.vregisters[5] = 0x0
@@ -122,8 +104,6 @@ class TestChip8(unittest.TestCase):
                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
         self.assertEqual(c.video, expected)
-
-        del c
 
 if __name__ == '__main__':
     unittest.main()
