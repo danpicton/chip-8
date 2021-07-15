@@ -2,16 +2,19 @@ import unittest
 from random import randint
 from chip8 import Chip8
 
+# Factory for decorators
+def video_test(screen_res, pixel_size):
+    def do_test_wrapped(func):
+        def do_test(self):
+            test_chip8 = Chip8(screen_res, pixel_size)
 
-def video_test(func):
-    def do_test(self=None, *args, **kwargs):
-        c = Chip8(kwargs['screen_res'], kwargs['pixel_size'])
+            func(self, test_chip8)
 
-        func(self)
+            del test_chip8
 
-        del c
+        return do_test
 
-    return do_test
+    return do_test_wrapped
 
 def non_video_test(func):
     def do_test(self):
