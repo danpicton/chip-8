@@ -106,8 +106,27 @@ class TestChip8(unittest.TestCase):
         self.assertEqual(c.video, expected)
 
     @non_video_test
-    def test_decode_2NNN(self,c):
-        self.fail()
+    def test_decode_2NNN(self,c: Chip8):
+        c.memory = [12, 255, 32, 8, 43, 67, 0, 28, 31]
+        c.pc = 0
+
+        c.opcode='2003'
+        c.decode()
+        # pc added to stack, jump to 003
+        c.fetch()
+        # fetches 32, 08 as opcode (2008)
+        c.decode()
+        # pc added to stack, jump to 008
+
+        expected_state = {"stack": [0x000, 0x003] + 14 * [None],
+                          "pc": 0x008}
+
+        actual_state = {"stack": c.stack,
+                        "pc": c.pc}
+
+        self.assertEqual(expected_state, actual_state)
+
+
 
     @non_video_test
     def test_decode_00ee(self,c):
