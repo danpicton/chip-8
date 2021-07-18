@@ -69,12 +69,14 @@ class Chip8:
 
     def load(self, rom_path):
         with open(rom_path, "rb") as f:
-            byte = f.read(1).hex()
-            while byte != "":
+            byte = int.from_bytes(f.read(1), byteorder='big')
+            # byte = f.read(1).hex()
+            while True: # TODO: workout what this condition should be
                 self.memory[self.pc] = byte
                 # print(byte)
                 self.pc += 0x1
-                byte = f.read(1).hex()
+                # byte = f.read(1).hex()
+                byte = int.from_bytes(f.read(1), byteorder='big')
         f.close()
         self.pc = MEM_ADDRESS_START
 
