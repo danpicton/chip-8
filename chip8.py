@@ -84,7 +84,7 @@ class Chip8:
         # print(self.memory[self.pc+1])
 
         if self.memory[self.pc]:
-            self.opcode = self.memory[self.pc] + self.memory[self.pc + 1]
+            self.opcode = f"{self.memory[self.pc]:02x}" + f"{self.memory[self.pc + 1]:02x}" #TODO: load into memory as int
             self.pc+=2
         # read two bytes being pointed to by PC
         # increment PC by 2
