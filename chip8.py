@@ -86,7 +86,7 @@ class Chip8:
         # print(self.memory[self.pc] << 8)
         # print(self.memory[self.pc+1])
 
-        if self.memory[self.pc]:
+        if self.memory[self.pc] != None and 0 <= self.pc < len(self.memory):
             self.opcode = f"{self.memory[self.pc]:02x}" + f"{self.memory[self.pc + 1]:02x}" #TODO: load into memory as int
             self.pc+=2
         # read two bytes being pointed to by PC
